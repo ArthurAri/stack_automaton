@@ -265,6 +265,15 @@ int _simularAutomato(int posicaoFita, int estadoAtual, Stack * pilha){
                     return 1;
             }
         }
+        else if (read == '?'){
+            if (isEmpty(pilha) && (condition == currentChar || !hasCondition)){
+                Stack * newStack = cloneStack(pilha);
+                if (write != '-') add(newStack, write);
+                if (_simularAutomato(posicaoFita + hasCondition, currentState->transition[i].to, newStack) 
+                    & DestroyStack(newStack))
+                    return 1;
+            }
+        }
         //Algo a ler
         else{
             //A palavra é igual
@@ -298,7 +307,7 @@ void simularAutomato(){
 
 int main() {
     alphabet = NULL;
-    FILE *arquivo = fopen("quintopla.txt", "r");
+    FILE *arquivo = fopen("linha.txt", "r");
     char linha[256]; // Define o tamanho máximo de cada linha
 
     if (arquivo == NULL) {
